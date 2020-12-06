@@ -1,6 +1,7 @@
 import React from "react";
 import {Menu} from "../components/Menu";
 
+// eslint-disable-next-line react/prop-types
 const BasePage: React.FC = ({children}) => {
 
     const gitsha = 'unknown';
