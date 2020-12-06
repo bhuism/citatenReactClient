@@ -103,8 +103,8 @@ export const Table: React.FC<TableProps> = (props) => {
     function header(key: string) {
         return (
             <React.Fragment>
-                <span className='myheader' onClick={
-                    e => {
+                <span onClick={
+                    () => {
 
                         let newsort = key;
 
@@ -134,7 +134,7 @@ export const Table: React.FC<TableProps> = (props) => {
         result.push(<Column key="checkboxcol" selectionMode="multiple" headerStyle={{width: '3rem'}}></Column>);
 
 
-        state.columns.forEach((col, i) => {
+        state.columns.forEach((col) => {
             result.push(<Column key={col.key} field={col.key} header={header(col.key)}/>);
         });
 
