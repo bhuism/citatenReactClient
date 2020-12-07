@@ -5,3 +5,14 @@ steps:
   - name: node
     entrypoint: npm
     args: [ 'run', 'build' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'build', '-t', 'eu.gcr.io/badge-260212/citaten-client:latest', '.' ]
+  - name: 'gcr.io/cloud-builders/docker'
+    args: [ 'push', 'eu.gcr.io/badge-260212/citaten-client:latest' ]
+
+#    # Deploy
+#  - name: 'gcr.io/cloud-builders/gcloud'
+#    id: deploy
+#    args: [ 'run', 'deploy', 'citaten', '--image', 'eu.gcr.io/badge-260212/citaten-client:latest', '--region', 'europe-west4', '--platform', 'managed', '--concurrency', '80', '--max-instances', '10', '--memory', '128Mi', '--timeout', '60s', '--allow-unauthenticated' ]
+
+
