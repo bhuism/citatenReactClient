@@ -4,7 +4,6 @@ export interface IColumn {
 }
 
 export interface IDataTableState<T> {
-    loading: boolean;
     columns: Array<IColumn>;
     rows: Array<T>;
 }

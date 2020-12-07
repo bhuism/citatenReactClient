@@ -22,45 +22,35 @@ interface RequestParams {
 export const Table: React.FC<TableProps> = (props: TableProps) => {
 
     const [requestParams, setRequestParams] = useState<RequestParams>({limit: 10, offset: 0, sort: ""});
-
     const [selected, setSelected] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const [state, setState] = useState<IDataTableState<{}>>({
-        loading: true,
         columns: [],
         rows: []
     });
 
     function doFetch() {
-        setState({loading: true, columns: state.columns, rows: state.rows});
+        setLoading(true);
         setSelected([]);
         fetch(BASE + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : ""))
             .then(result => result.json())
             .then((result) => {
-
                 setState({
-
-                    loading: false,
-
                     columns: [
                         {title: 'Id', key: 'uuid'},
                         {title: 'Name', key: 'name'},
                         {title: 'Spreker', key: 'spreker'},
                         {title: 'Categorie', key: 'categorie'}
                     ],
-
                     rows: result
-
                 })
-
-
             })
+            .finally(() => setLoading(false))
             .catch(console.log);
     }
 
-    useEffect(() => {
-        doFetch();
-    }, [requestParams])
+    useEffect(doFetch, [requestParams])
 
     function doDelete() {
         selected.forEach((s) => {
@@ -106,21 +96,18 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                 <span onClick={
                     () => {
 
-                        let newsort = key;
+                        let sort = key;
 
                         if (key === requestParams.sort || '-' + key === requestParams.sort) {
-
                             if (requestParams.sort.startsWith('-')) {
-                                newsort = "";
+                                sort = "";
                             } else {
-                                newsort = '-' + key;
+                                sort = '-' + key;
                             }
-
                         }
 
-                        setRequestParams({offset: requestParams.offset, limit: requestParams.limit, sort: newsort});
+                        setRequestParams({offset: requestParams.offset, limit: requestParams.limit, sort: sort});
 
-                        console.log('clicked: ' + requestParams.sort);
                     }
                 }>{key}</span>
             </React.Fragment>
@@ -131,11 +118,11 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
 
         let result: ReactNode[] = [];
 
-        result.push(<Column key="checkboxcol" selectionMode="multiple" headerStyle={{width: '3rem'}}></Column>);
+        result.push(<Column key="checkboxcol" selectionMode="multiple" headerStyle={{width: '3rem'}}/>);
 
 
         state.columns.forEach((col) => {
-            result.push(<Column key={col.key} field={col.key} header={header(col.key)}/>);
+            result.push(<Column key={col.key} field={col.key} header={header(col.key)} />);
         });
 
 
@@ -152,7 +139,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                 dataKey="uuid"
                 value={state.rows}
                 selection={selected} onSelectionChange={(e) => setSelected(e.value)}
-                loading={state.loading}
+                loading={loading}
                 className="p-datatable-sm p-datatable-gridlines"
             >
                 {getColumns()}
