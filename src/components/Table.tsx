@@ -122,7 +122,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
 
 
         state.columns.forEach((col) => {
-            result.push(<Column key={col.key} field={col.key} header={header(col.key)} />);
+            result.push(<Column key={col.key} field={col.key} header={header(col.key)}/>);
         });
 
 
