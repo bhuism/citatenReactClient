@@ -91,23 +91,24 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     function header(key: string) {
         return (
             <React.Fragment>
-                <span onClick={
-                    () => {
+                <span className={key === requestParams.sort || '-' + key === requestParams.sort ? 'sorted' : ''}
+                      onClick={
+                          () => {
 
-                        let sort = key;
+                              let sort = key;
 
-                        if (key === requestParams.sort || '-' + key === requestParams.sort) {
-                            if (requestParams.sort.startsWith('-')) {
-                                sort = "";
-                            } else {
-                                sort = '-' + key;
-                            }
-                        }
+                              if (key === requestParams.sort || '-' + key === requestParams.sort) {
+                                  if (requestParams.sort.startsWith('-')) {
+                                      sort = "";
+                                  } else {
+                                      sort = '-' + key;
+                                  }
+                              }
 
-                        setRequestParams({...requestParams, sort: sort});
+                              setRequestParams({...requestParams, sort: sort});
 
-                    }
-                }>{key}</span>
+                          }
+                      }>{key}</span>
             </React.Fragment>
         );
     }
