@@ -57,7 +57,6 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             fetch(BASE + '/' + s['uuid'],
                 {method: 'DELETE'}
             ).finally(() => {
-                setSelected([]);
                 doFetch();
             });
         })
