@@ -1,12 +1,8 @@
-body {
-    margin: 0;
-    padding: 0;
-    font-family: sans-serif;
-}
-
 .layout-footer {
     text-align: right;
     position: fixed;
+    padding-right: 10px;
+    heaght: 24px;
     width: 100%;
     bottom: 0;
 }
