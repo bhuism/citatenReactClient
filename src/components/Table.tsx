@@ -24,7 +24,6 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     const [requestParams, setRequestParams] = useState<RequestParams>({limit: 10, offset: 0, sort: ""});
     const [selected, setSelected] = useState([]);
     const [loading, setLoading] = useState(false);
-
     const [state, setState] = useState<IDataTableState<{}>>({
         columns: [],
         rows: []
@@ -105,7 +104,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                             }
                         }
 
-                        setRequestParams({offset: requestParams.offset, limit: requestParams.limit, sort: sort});
+                        setRequestParams({...requestParams, sort: sort});
 
                     }
                 }>{key}</span>
@@ -115,15 +114,13 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
 
     function getColumns(): ReactNode[] {
 
-        let result: ReactNode[] = [];
+        const result: ReactNode[] = [];
 
         result.push(<Column key="checkboxcol" selectionMode="multiple" headerStyle={{width: '3rem'}}/>);
-
 
         state.columns.forEach((col) => {
             result.push(<Column key={col.key} field={col.key} header={header(col.key)}/>);
         });
-
 
         return result;
 
