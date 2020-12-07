@@ -4,15 +4,12 @@ import PropTypes from 'prop-types';
 
 const BasePage: React.FC = ({children}) => {
 
-    const gitsha = 'unknown';
-
     return (
         <>
             <nav><Menu/></nav>
             <main>{children}</main>
-            <footer className='layout-footer'><img
-                src={'https://badge.odee.net/gitlab/sha/154/master/' + gitsha + '/badge.svg'}
-                alt='Version badge'/>
+            <footer className='layout-footer'>
+                <img src={'https://badge.odee.net/github/sha/bhuism/master/' + process.env.REACT_APP_GIT_SHA + '/badge.svg'} alt='Version badge'/>
             </footer>
         </>
     )
