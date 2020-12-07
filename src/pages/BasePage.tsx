@@ -9,7 +9,7 @@ const BasePage: React.FC = ({children}) => {
             <nav><Menu/></nav>
             <main>{children}</main>
             <footer className='layout-footer'>
-                <img src={'https://badge.odee.net/github/sha/bhuism/master/' + process.env.REACT_APP_GIT_SHA + '/badge.svg'} alt='Version badge'/>
+                <img src={'https://badge.odee.net/github/sha/bhuism/citatenReactClient/master/' + process.env.REACT_APP_GIT_SHA + '/badge.svg'} alt='Version badge'/>
             </footer>
         </>
     )
