@@ -5,7 +5,7 @@ import BasePage from "./BasePage";
 const HomePage: React.FC = () => {
     return (
         <BasePage>
-            <Table name={'testtable'}/>
+            <Table name={'Citaten'}/>
         </BasePage>
     );
 };

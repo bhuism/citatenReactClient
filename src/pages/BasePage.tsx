@@ -1,7 +1,7 @@
 import React from "react";
 import {Menu} from "../components/Menu";
+import PropTypes from 'prop-types';
 
-// eslint-disable-next-line react/prop-types
 const BasePage: React.FC = ({children}) => {
 
     const gitsha = 'unknown';
@@ -17,6 +17,10 @@ const BasePage: React.FC = ({children}) => {
         </>
     )
 
+};
+
+BasePage.propTypes = {
+    children: PropTypes.node.isRequired,
 };
 
 export default BasePage;

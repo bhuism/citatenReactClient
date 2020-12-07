@@ -10,7 +10,7 @@ import {Paginator} from "primereact/paginator";
 const BASE: string = 'https://api.citaten.odee.net/citaten';
 
 interface TableProps {
-    name: string
+    name: string;
 }
 
 interface RequestParams {
@@ -19,7 +19,7 @@ interface RequestParams {
     sort: string
 }
 
-export const Table: React.FC<TableProps> = (props) => {
+export const Table: React.FC<TableProps> = (props: TableProps) => {
 
     const [requestParams, setRequestParams] = useState<RequestParams>({limit: 10, offset: 0, sort: ""});
 
@@ -95,7 +95,7 @@ export const Table: React.FC<TableProps> = (props) => {
                                offset: e.first,
                                limit: e.rows,
                                sort: requestParams.sort
-                           })}></Paginator>
+                           })}/>
             </React.Fragment>
         )
     }
@@ -144,9 +144,9 @@ export const Table: React.FC<TableProps> = (props) => {
     }
 
     return (
-        <Card>
+        <Card footer={props.name}>
 
-            <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}></Toolbar>
+            <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}/>
 
             <DataTable
                 dataKey="uuid"
