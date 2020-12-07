@@ -4,8 +4,8 @@ import {IDataTableState} from "./IDatatable";
 import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
-import {Toolbar} from 'primereact/toolbar';
 import {Paginator} from "primereact/paginator";
+import {Toolbar} from "primereact/toolbar";
 
 const BASE: string = 'https://api.citaten.odee.net/citaten';
 
@@ -130,7 +130,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     return (
         <Card footer={props.name}>
 
-            <Toolbar className="p-mb-4" left={leftToolbarTemplate} right={rightToolbarTemplate}/>
+            <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate} className={'lesspadding'}/>
 
             <DataTable
                 dataKey="uuid"
