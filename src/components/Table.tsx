@@ -29,10 +29,14 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         rows: []
     });
 
+    function getUrl(): string {
+        return BASE + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : "")
+    }
+
     function doFetch() {
         setLoading(true);
         setSelected([]);
-        fetch(BASE + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : ""))
+        fetch(getUrl())
             .then(result => result.json())
             .then((result) => {
                 setState({
@@ -49,6 +53,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             .catch(console.log);
     }
 
+    // eslint-disable-next-line
     useEffect(doFetch, [requestParams])
 
     function doDelete() {
@@ -61,13 +66,16 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         })
     }
 
+    function download() {
+        window.location.href = getUrl();
+    }
+
     function leftToolbarTemplate() {
         return (
             <React.Fragment>
                 <Button label="Reload" icon="pi pi-refresh" className="p-button-success p-mr-2" onClick={doFetch}/>
-                <Button label="Delete" icon="pi pi-trash" className="p-button-danger"
-                        disabled={!selected || !selected.length}
-                        onClick={doDelete}/>
+                <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-mr-2" disabled={!selected || !selected.length} onClick={doDelete}/>
+                <Button label="Export" icon="pi pi-upload" className="p-button-help p-mr-2" onClick={download}/>
             </React.Fragment>
         )
     }
@@ -113,14 +121,17 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         );
     }
 
+    const widthMap = new Map([['uuid', '25%'], ['name', '60%'], ['spreker', '5%'], ['categorie', '5%']]);
+
     function getColumns(): ReactNode[] {
 
         const result: ReactNode[] = [];
 
-        result.push(<Column key="checkboxcol" selectionMode="multiple" headerStyle={{width: '3rem'}}/>);
+        result.push(<Column key="checkboxcol" columnKey="checkboxcol" selectionMode="multiple" headerStyle={{width: '5%'}} frozen={true}/>);
 
         state.columns.forEach((col) => {
-            result.push(<Column key={col.key} field={col.key} header={header(col.key)}/>);
+            result.push(<Column key={col.key} columnKey={col.key} field={col.key} header={header(col.key)} headerStyle={{width: widthMap.get(col.key)}}
+                                className={'noOverflow'}/>);
         });
 
         return result;
@@ -130,14 +141,15 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     return (
         <Card footer={props.name}>
 
-            <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate} className={'lesspadding'}/>
+            <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate} style={{'paddingLeft': '0', 'paddingRight': '0'}}/>
 
             <DataTable
                 dataKey="uuid"
                 value={state.rows}
                 selection={selected} onSelectionChange={(e) => setSelected(e.value)}
                 loading={loading}
-                className="p-datatable-sm p-datatable-gridlines"
+                className="p-datatable-sm"
+                //                footer={'myfooter'}
             >
                 {getColumns()}
             </DataTable>
