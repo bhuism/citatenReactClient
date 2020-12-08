@@ -86,7 +86,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                 <Paginator first={requestParams.offset}
                            rows={requestParams.limit}
                            totalRecords={requestParams.offset + requestParams.limit + 1}
-                           rowsPerPageOptions={[5, 10, 25]}
+                           rowsPerPageOptions={[5, 10, 25, 50]}
                            onPageChange={(e) => setRequestParams({
                                offset: e.first,
                                limit: e.rows,
