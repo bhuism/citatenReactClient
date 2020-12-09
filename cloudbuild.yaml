@@ -6,6 +6,8 @@ steps:
     entrypoint: npm
     args: [ 'run', 'build' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    args: [ 'gsutil', '-m', 'rm', '-r', '-a', 'gs://citaten.odee.net/**' ]
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: [ 'gsutil', '-m', 'cp', '-r', 'build', 'gs://citaten.odee.net' ]
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'eu.gcr.io/badge-260212/citaten-client:latest', '--build-arg', 'COMMIT_SHA=$COMMIT_SHA', '.' ]
