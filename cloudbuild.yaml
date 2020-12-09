@@ -9,3 +9,8 @@ steps:
     args: [ 'sh', '-c', 'apk add gettext moreutils ; echo 111 ; cat /workspace/build/actuator/info ; envsubst < /workspace/build/actuator/info | sponge /workspace/build/actuator/info ; echo 222 ; cat /workspace/build/actuator/info ' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: [ 'gsutil', '-m', 'rsync', '-d', '-r', 'build/.', 'gs://citaten.odee.net' ]
+options:
+  env:
+    - "COMMIT_SHA=$COMMIT_SHA"
+    - "SHORT_SHA=$SHORT_SHA"
+    - "BRANCH_NAME=$BRANCH_NAME"
