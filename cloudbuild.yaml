@@ -15,4 +15,4 @@ steps:
 artifacts:
   objects:
     location: 'gs://citaten.odee.net'
-    paths: [ 'build' ]
+    paths: [ 'build/*' ]
