@@ -5,6 +5,8 @@ steps:
   - name: node
     entrypoint: npm
     args: [ 'run', 'build' ]
+  - name: 'gcr.io/cloud-builders/gcloud'
+    args: [ 'gsutil', 'cp', '-r', 'build', 'gs://citaten.odee.net']
   - name: 'gcr.io/cloud-builders/docker'
     args: [ 'build', '-t', 'eu.gcr.io/badge-260212/citaten-client:latest', '--build-arg', 'COMMIT_SHA=$COMMIT_SHA', '.' ]
   - name: 'gcr.io/cloud-builders/docker'
@@ -12,7 +14,3 @@ steps:
   - name: 'gcr.io/cloud-builders/gcloud'
     args: [ 'run', 'deploy', 'citaten-front', '--image', 'eu.gcr.io/badge-260212/citaten-client:latest', '--region', 'europe-west4', '--platform', 'managed', '--concurrency', '80', '--max-instances', '10', '--memory', '128Mi', '--timeout', '5s', '--allow-unauthenticated' ]
 
-artifacts:
-  objects:
-    location: 'gs://citaten.odee.net'
-    paths: [ 'build/*' ]
