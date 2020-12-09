@@ -2,10 +2,10 @@ steps:
   - name: node
     entrypoint: npm
     args: [ 'install' ]
-  - name: alpine
-    args: [ 'sh', '-c', 'apk add -q gettext && envsubst < build/actuator/info | tee build/actuator/info' ]
   - name: node
     entrypoint: npm
     args: [ 'run', 'build' ]
+  - name: alpine
+    args: [ 'sh', '-c', 'apk add -q gettext && envsubst < build/actuator/info | tee build/actuator/info' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
     args: [ 'gsutil', '-m', 'rsync', '-d', '-r', 'build/.', 'gs://citaten.odee.net' ]
