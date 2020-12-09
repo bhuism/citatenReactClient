@@ -2,7 +2,7 @@
   "git": {
     "branch": "master",
     "commit": {
-      "id": "%COMMIT_SHA%"
+      "id": "${COMMIT_SHA}"
     }
   }
 }
