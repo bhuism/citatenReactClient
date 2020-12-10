@@ -11,7 +11,7 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps) => {
     useEffect(() => {
         setInterval(() => {
             setImage(props.url + '#' + Date.now());
-        }, 5000);
+        }, 15 * 1000);
     }, [props])
 
 
