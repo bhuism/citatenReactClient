@@ -4,11 +4,8 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.css';
-import PrimeReact from 'primereact/utils';
 import {BrowserRouter as Router, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
-
-PrimeReact.ripple = true;
 
 export function getRuntimeVariable(setting: string): string {
     const win = window as any;
