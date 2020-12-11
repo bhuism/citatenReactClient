@@ -8,11 +8,7 @@ steps:
   - name: alpine
     args: [ 'sh', '-c', 'apk add gettext moreutils ; envsubst < /workspace/build/actuator/info | sponge /workspace/build/actuator/info' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: [ 'gsutil', '-m', 'rm', 'gs://citaten.odee.net/**' ]
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: [ 'gsutil', '-m', '-h', 'Cache-Control:public,max-age=3600', 'cp', '-r', '-Z', 'build/.', 'gs://citaten.odee.net' ]
-  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: [ 'gsutil', 'setmeta', '-h', 'Cache-Control:no-cache, max-age=0', '-h', 'Content-Type:application/json', 'gs://citaten.odee.net/actuator/info' ]
+    args: [ './deploy.sh' ]
 
 options:
   env:
