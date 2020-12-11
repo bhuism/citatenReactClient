@@ -13,6 +13,5 @@ steps:
 options:
   env:
     - "COMMIT_SHA=$COMMIT_SHA"
-    - "REACT_APP_GIT_SHA=$COMMIT_SHA"
     - "SHORT_SHA=$SHORT_SHA"
     - "BRANCH_NAME=$BRANCH_NAME"
