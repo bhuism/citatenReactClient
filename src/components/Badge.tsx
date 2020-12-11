@@ -14,7 +14,6 @@ export const Badge: React.FC<BadgeProps> = (props: BadgeProps) => {
         }, 15 * 1000);
     }, [props])
 
-
     return <img src={image} alt='Version badge'/>;
 
 }
