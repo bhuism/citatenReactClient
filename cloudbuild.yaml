@@ -8,7 +8,7 @@ steps:
   - name: alpine
     args: [ 'sh', '-c', 'apk add gettext moreutils ; envsubst < /workspace/build/actuator/info | sponge /workspace/build/actuator/info' ]
   - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    args: [ 'gsutil', '-m', 'rsync', '-d', '-r', 'build/.', 'gs://citaten.odee.net' ]
+    args: [ 'gsutil', '-m', 'cp', '-Z', '-r', 'build/.', 'gs://citaten.odee.net' ]
 options:
   env:
     - "COMMIT_SHA=$COMMIT_SHA"
