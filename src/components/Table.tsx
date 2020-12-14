@@ -7,7 +7,7 @@ import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import {Toolbar} from "primereact/toolbar";
 
-const BASE: string = 'https://api.citaten.odee.net/citaten';
+const BASE: string = 'https://api-citaten.odee.net/citaten';
 
 interface TableProps {
     name: string;
