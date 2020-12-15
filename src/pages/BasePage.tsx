@@ -1,5 +1,4 @@
 import React from "react";
-import {Menu} from "../components/Menu";
 import PropTypes from 'prop-types';
 import {Badge} from "../components/Badge";
 
@@ -7,7 +6,6 @@ const BasePage: React.FC = ({children}) => {
 
     return (
         <>
-            <nav><Menu/></nav>
             <main>{children}</main>
             <footer className='layout-footer'>
                 <a href="https://github.com/bhuism/citatenReactClient" target="_blank" rel="noreferrer">
