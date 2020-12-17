@@ -41,7 +41,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             .then((result) => {
                 setState({
                     columns: [
-                        {title: 'Id', key: 'uuid'},
+                        {title: 'Id', key: 'id'},
                         {title: 'Name', key: 'name'},
                         {title: 'Spreker', key: 'spreker'},
                         {title: 'Categorie', key: 'categorie'}
@@ -58,7 +58,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
 
     function doDelete() {
         selected.forEach((s) => {
-            fetch(BASE + '/' + s['uuid'],
+            fetch(BASE + '/' + s['id'],
                 {method: 'DELETE'}
             ).finally(() => {
                 doFetch();
@@ -144,7 +144,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             <Toolbar left={leftToolbarTemplate} right={rightToolbarTemplate} style={{'paddingLeft': '0', 'paddingRight': '0'}}/>
 
             <DataTable
-                dataKey="uuid"
+                dataKey="id"
                 value={state.rows}
                 selection={selected} onSelectionChange={(e) => setSelected(e.value)}
                 loading={loading}
