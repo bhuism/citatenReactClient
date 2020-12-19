@@ -31,7 +31,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     });
 
     function getUrl(): string {
-        return BASE + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : "") + (requestParams.globalSearch.length > 0 ? '&search=' + requestParams.globalSearch : "");
+        return BASE + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : "") + (requestParams.globalSearch.length > 0 ? '&query=' + requestParams.globalSearch : "");
     }
 
     function doFetch() {
