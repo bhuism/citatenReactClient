@@ -85,7 +85,6 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         return (
             <React.Fragment>
                 <div style={{'textAlign': 'left'}}>
-                    <i className="pi pi-search" style={{margin: '4px 4px 0 0'}}></i>
                     <InputText type="search" onInput={(e) => setRequestParams({...requestParams, globalSearch: e.currentTarget.value})} placeholder="Search"/>
                 </div>
             </React.Fragment>
