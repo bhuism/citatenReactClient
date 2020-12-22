@@ -9,6 +9,8 @@ import {DataTable} from "primereact/datatable";
 
 const BASE: string = 'https://api-citaten.odee.net';
 const API_CITATEN: string = BASE + '/citaten';
+const API_AUTHOR: string = BASE + '/sprekers';
+const API_GENRE: string = BASE + '/categorien';
 
 interface TableProps {
     name: string;
@@ -138,6 +140,14 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         return <a href={API_CITATEN + '/' + id}>{id}</a>;
     }
 
+    function authorColumn(id: any): any {
+        return <a href={API_AUTHOR + '/' + id}>{id}</a>;
+    }
+
+    function genreColumn(id: any): any {
+        return <a href={API_GENRE + '/' + id}>{id}</a>;
+    }
+
     return (
         <DataTable
             dataKey="id"
@@ -153,9 +163,9 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                     body={(row: any) => idColumn(row['id'])}/>
             <Column key={'name'} columnKey={'name'} field={'name'} header={colHeader('name')} headerStyle={{width: '60%'}} className={'noOverflow'}/>
             <Column key={'spreker'} columnKey={'spreker'} field={'spreker'} header={colHeader('spreker')} headerStyle={{width: '5%'}}
-                    className={'noOverflow'}/>
+                    className={'noOverflow'} body={(row: any) => authorColumn(row['spreker'])}/>
             <Column key={'categorie'} columnKey={'categorie'} field={'categorie'} header={colHeader('categorie')} headerStyle={{width: '5%'}}
-                    className={'noOverflow'}/>
+                    className={'noOverflow'} body={(row: any) => genreColumn(row['categorie'])}/>
 
         </DataTable>
     )
