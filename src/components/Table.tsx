@@ -88,7 +88,12 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         return (
             <React.Fragment>
                 <div style={{'textAlign': 'left'}}>
-                    <InputText type="search" onInput={(e) => setRequestParams({...requestParams, globalSearch: e.currentTarget.value})} placeholder="Search"/>
+                    <InputText type="search" onInput={(e) => {
+                        const value = e.currentTarget.value;
+                        if (value && value.length > 2) {
+                            setRequestParams({...requestParams, globalSearch: e.currentTarget.value});
+                        }
+                    }} placeholder="Search"/>
                 </div>
             </React.Fragment>
         )
@@ -97,24 +102,24 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     function colHeader(key: string) {
         return (
             <React.Fragment>
-                <span className={key === requestParams.sort || '-' + key === requestParams.sort ? 'sorted' : ''}
-                      onClick={
-                          () => {
+            <span className={key === requestParams.sort || '-' + key === requestParams.sort ? 'sorted' : ''}
+                  onClick={
+                      () => {
 
-                              let sort = key;
+                          let sort = key;
 
-                              if (key === requestParams.sort || '-' + key === requestParams.sort) {
-                                  if (requestParams.sort.startsWith('-')) {
-                                      sort = "";
-                                  } else {
-                                      sort = '-' + key;
-                                  }
+                          if (key === requestParams.sort || '-' + key === requestParams.sort) {
+                              if (requestParams.sort.startsWith('-')) {
+                                  sort = "";
+                              } else {
+                                  sort = '-' + key;
                               }
-
-                              setRequestParams({...requestParams, sort: sort});
-
                           }
-                      }>{key}</span>
+
+                          setRequestParams({...requestParams, sort: sort});
+
+                      }
+                  }>{key}</span>
             </React.Fragment>
         );
     }
