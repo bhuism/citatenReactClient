@@ -92,6 +92,10 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                         const value = e.currentTarget.value;
                         if (value && value.length > 2) {
                             setRequestParams({...requestParams, globalSearch: e.currentTarget.value});
+                        } else {
+                            if (requestParams.globalSearch !== "") {
+                                setRequestParams({...requestParams, globalSearch: ""});
+                            }
                         }
                     }} placeholder="Search"/>
                 </div>
