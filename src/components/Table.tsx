@@ -1,11 +1,11 @@
-import React, {ReactNode, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {IDataTableState} from "./IDatatable";
-import {DataTable} from "primereact/datatable";
 import {Column} from "primereact/column";
 import {Button} from "primereact/button";
 import {Paginator} from "primereact/paginator";
 import {Toolbar} from "primereact/toolbar";
 import {InputText} from "primereact/inputtext";
+import {DataTable} from "primereact/datatable";
 
 const BASE: string = 'https://api-citaten.odee.net/citaten';
 
@@ -133,33 +133,8 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                            onPageChange={(e) => setRequestParams({...requestParams, offset: e.first, limit: e.rows})}/>);
     }
 
-
-    const widthMap = new Map([['uuid', '25%'], ['name', '60%'], ['spreker', '5%'], ['categorie', '5%']]);
-
-    function getColumns(): ReactNode[] {
-
-        const result: ReactNode[] = [];
-
-        result.push(<
-            Column
-            key="checkboxcol"
-            columnKey="checkboxcol"
-            selectionMode="multiple"
-            headerStyle={
-                {
-                    width: '5%'
-                }
-            }
-            frozen={true}
-        />);
-
-        state.columns.forEach((col) => {
-            result.push(<Column key={col.key} columnKey={col.key} field={col.key} header={colHeader(col.key)} headerStyle={{width: widthMap.get(col.key)}}
-                                className={'noOverflow'}/>);
-        });
-
-        return result;
-
+    function idColumn(id: any): any {
+        return <a href={BASE + '/id' + id}>{id}</a>;
     }
 
     return (
@@ -172,7 +147,15 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             loading={loading}
             className="p-datatable-sm"
         >
-            {getColumns()}
+            <Column key="checkboxcol" columnKey="checkboxcol" selectionMode="multiple" headerStyle={{width: '5%'}} frozen={true}/>
+            <Column key={'id'} columnKey={'id'} field={'id'} header={colHeader('id')} headerStyle={{width: '25%'}} className={'noOverflow'}
+                    body={(row: any) => idColumn(row['id'])}/>
+            <Column key={'name'} columnKey={'name'} field={'name'} header={colHeader('name')} headerStyle={{width: '60%'}} className={'noOverflow'}/>
+            <Column key={'spreker'} columnKey={'spreker'} field={'spreker'} header={colHeader('spreker')} headerStyle={{width: '5%'}}
+                    className={'noOverflow'}/>
+            <Column key={'categorie'} columnKey={'categorie'} field={'categorie'} header={colHeader('categorie')} headerStyle={{width: '5%'}}
+                    className={'noOverflow'}/>
+
         </DataTable>
     )
 }
