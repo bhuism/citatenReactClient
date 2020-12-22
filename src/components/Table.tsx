@@ -140,7 +140,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     function bottomRight() {
         return (<Paginator first={requestParams.offset}
                            rows={requestParams.limit}
-                           totalRecords={requestParams.offset + requestParams.limit + 1}
+                           totalRecords={state.rows.length < requestParams.limit ? state.rows.length : requestParams.offset + requestParams.limit + 1}
                            rowsPerPageOptions={[5, 10, 25, 50]}
                            onPageChange={(e) => setRequestParams({...requestParams, offset: e.first, limit: e.rows})}/>);
     }
