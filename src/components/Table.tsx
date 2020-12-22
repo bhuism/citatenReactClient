@@ -7,7 +7,8 @@ import {Toolbar} from "primereact/toolbar";
 import {InputText} from "primereact/inputtext";
 import {DataTable} from "primereact/datatable";
 
-const BASE: string = 'https://api-citaten.odee.net/citaten';
+const BASE: string = 'https://api-citaten.odee.net';
+const API_CITATEN: string = BASE + '/citaten';
 
 interface TableProps {
     name: string;
@@ -31,7 +32,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     });
 
     function getUrl(): string {
-        return BASE + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : "") + (requestParams.globalSearch.length > 0 ? '&query=' + requestParams.globalSearch : "");
+        return API_CITATEN + '?limit=' + requestParams.limit + '&offset=' + requestParams.offset + (requestParams.sort.length > 0 ? '&sort=' + requestParams.sort : "") + (requestParams.globalSearch.length > 0 ? '&query=' + requestParams.globalSearch : "");
     }
 
     function doFetch() {
@@ -59,7 +60,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
 
     function doDelete() {
         selected.forEach((s) => {
-            fetch(BASE + '/' + s['id'],
+            fetch(API_CITATEN + '/' + s['id'],
                 {method: 'DELETE'}
             ).finally(() => {
                 doFetch();
@@ -134,7 +135,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     }
 
     function idColumn(id: any): any {
-        return <a href={BASE + '/id' + id}>{id}</a>;
+        return <a href={API_CITATEN + '/' + id}>{id}</a>;
     }
 
     return (
