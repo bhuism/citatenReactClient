@@ -29,7 +29,6 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     const [selected, setSelected] = useState([]);
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState<IDataTableState<{}>>({
-        columns: [],
         rows: []
     });
 
@@ -44,12 +43,6 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             .then(result => result.json())
             .then((result) => {
                 setState({
-                    columns: [
-                        {title: 'Id', key: 'id'},
-                        {title: 'Name', key: 'name'},
-                        {title: 'Spreker', key: 'spreker'},
-                        {title: 'Categorie', key: 'categorie'}
-                    ],
                     rows: result
                 })
             })
