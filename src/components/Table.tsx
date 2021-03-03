@@ -8,6 +8,7 @@ import {InputText} from "primereact/inputtext";
 import {DataTable} from "primereact/datatable";
 
 const BASE: string = 'https://api-citaten.odee.net';
+//tkeconst BASE: string = 'http://localhost:8080';
 const API_CITATEN: string = BASE + '/citaten';
 const API_AUTHOR: string = BASE + '/sprekers';
 const API_GENRE: string = BASE + '/categorien';
@@ -35,7 +36,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState<IDataTableState<{}>>({
         rows: [],
-        count: 0
+        count: null
     });
 
     function getUrl(): string {
@@ -45,12 +46,18 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     function doFetch() {
         setLoading(true);
         setSelected([]);
+
+        var count: string | null = null;
+
         fetch(getUrl())
-            .then(result => result.json())
+            .then((response) => {
+                count = response.headers.get("total-count");
+                return response.json();
+            })
             .then((result) => {
                 setState({
-                    rows: result.rows,
-                    count: result.count
+                    rows: result,
+                    count: count
                 })
             })
             .finally(() => setLoading(false))

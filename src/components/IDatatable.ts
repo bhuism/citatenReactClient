@@ -1,4 +1,4 @@
 export interface IDataTableState<T> {
     rows: Array<T>;
-    count: number
+    count: String | null;
 }
