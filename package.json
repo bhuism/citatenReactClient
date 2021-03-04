@@ -4,9 +4,9 @@
   "private": true,
   "dependencies": {
     "@testing-library/jest-dom": "5.11.9",
-    "@testing-library/react": "11.2.3",
-    "@types/react": "17.0.0",
-    "@types/react-dom": "17.0.0",
+    "@testing-library/react": "11.2.5",
+    "@types/react": "17.0.2",
+    "@types/react-dom": "17.0.1",
     "build": "0.1.4",
     "eslint-config-react-app": "6.0.0",
     "eslint-plugin-import": "2.22.1",
@@ -15,14 +15,14 @@
     "eslint-plugin-react-hooks": "4.2.0",
     "primeflex": "2.0.0",
     "primeicons": "4.1.0",
-    "primereact": "6.0.1",
+    "primereact": "6.0.2",
     "prop-types": "15.7.2",
     "react": "17.0.1",
     "react-dom": "17.0.1",
-    "react-scripts": "4.0.1",
+    "react-scripts": "4.0.3",
     "react-transition-group": "4.4.1",
     "run": "1.4.0",
-    "typescript": "4.1.2"
+    "typescript": "4.2.2"
   },
   "scripts": {
     "start": "REACT_APP_GIT_SHA=$(git rev-parse HEAD) react-scripts start",

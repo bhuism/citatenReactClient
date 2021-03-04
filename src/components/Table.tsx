@@ -8,6 +8,7 @@ import {InputText} from "primereact/inputtext";
 import {DataTable} from "primereact/datatable";
 
 const BASE: string = 'https://api-citaten.odee.net';
+//tkeconst BASE: string = 'http://localhost:8080';
 const API_CITATEN: string = BASE + '/citaten';
 const API_AUTHOR: string = BASE + '/sprekers';
 const API_GENRE: string = BASE + '/categorien';
@@ -25,11 +26,17 @@ interface RequestParams {
 
 export const Table: React.FC<TableProps> = (props: TableProps) => {
 
-    const [requestParams, setRequestParams] = useState<RequestParams>({limit: 10, offset: 0, sort: "", globalSearch: ""});
+    const [requestParams, setRequestParams] = useState<RequestParams>({
+        limit: 10,
+        offset: 0,
+        sort: "",
+        globalSearch: ""
+    });
     const [selected, setSelected] = useState([]);
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState<IDataTableState<{}>>({
-        rows: []
+        rows: [],
+        count: null
     });
 
     function getUrl(): string {
@@ -39,11 +46,18 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     function doFetch() {
         setLoading(true);
         setSelected([]);
+
+        var count: string | null = null;
+
         fetch(getUrl())
-            .then(result => result.json())
+            .then((response) => {
+                count = response.headers.get("total-count");
+                return response.json();
+            })
             .then((result) => {
                 setState({
-                    rows: result
+                    rows: result,
+                    count: count
                 })
             })
             .finally(() => setLoading(false))
@@ -71,7 +85,8 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         return (
             <React.Fragment>
                 <Button label="Reload" icon="pi pi-refresh" className="p-button-success p-mr-2" onClick={doFetch}/>
-                <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-mr-2" disabled={!selected || !selected.length} onClick={doDelete}/>
+                <Button label="Delete" icon="pi pi-trash" className="p-button-danger p-mr-2"
+                        disabled={!selected || !selected.length} onClick={doDelete}/>
                 <Button label="Export" icon="pi pi-upload" className="p-button-help p-mr-2" onClick={download}/>
             </React.Fragment>
         )
@@ -126,7 +141,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     }
 
     function tableFooter() {
-        return (<Toolbar left={() => props.name} right={bottomRight} style={{'padding': '0'}}/>
+        return (<Toolbar left={() => props.name + " " + state.count} right={bottomRight} style={{'padding': '0'}}/>
         );
     }
 
@@ -135,7 +150,11 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                            rows={requestParams.limit}
                            totalRecords={state.rows.length < requestParams.limit ? state.rows.length : requestParams.offset + requestParams.limit + 1}
                            rowsPerPageOptions={[5, 10, 25, 50]}
-                           onPageChange={(e) => setRequestParams({...requestParams, offset: e.first, limit: e.rows})}/>);
+                           onPageChange={(e) => setRequestParams({
+                               ...requestParams,
+                               offset: e.first,
+                               limit: e.rows
+                           })}/>);
     }
 
     function idColumn(id: any): any {
@@ -160,13 +179,18 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
             loading={loading}
             className="p-datatable-sm"
         >
-            <Column key="checkboxcol" columnKey="checkboxcol" selectionMode="multiple" headerStyle={{width: '5%'}} frozen={true}/>
-            <Column key={'id'} columnKey={'id'} field={'id'} header={colHeader('id')} headerStyle={{width: '25%'}} className={'noOverflow'}
+            <Column key="checkboxcol" columnKey="checkboxcol" selectionMode="multiple" headerStyle={{width: '5%'}}
+                    frozen={true}/>
+            <Column key={'id'} columnKey={'id'} field={'id'} header={colHeader('id')} headerStyle={{width: '25%'}}
+                    className={'noOverflow'}
                     body={(row: any) => idColumn(row['id'])}/>
-            <Column key={'name'} columnKey={'name'} field={'name'} header={colHeader('name')} headerStyle={{width: '60%'}} className={'noOverflow'}/>
-            <Column key={'spreker'} columnKey={'spreker'} field={'spreker'} header={colHeader('spreker')} headerStyle={{width: '5%'}}
+            <Column key={'name'} columnKey={'name'} field={'name'} header={colHeader('name')}
+                    headerStyle={{width: '60%'}} className={'noOverflow'}/>
+            <Column key={'spreker'} columnKey={'spreker'} field={'spreker'} header={colHeader('spreker')}
+                    headerStyle={{width: '5%'}}
                     className={'noOverflow'} body={(row: any) => authorColumn(row['spreker'])}/>
-            <Column key={'categorie'} columnKey={'categorie'} field={'categorie'} header={colHeader('categorie')} headerStyle={{width: '5%'}}
+            <Column key={'categorie'} columnKey={'categorie'} field={'categorie'} header={colHeader('categorie')}
+                    headerStyle={{width: '5%'}}
                     className={'noOverflow'} body={(row: any) => genreColumn(row['categorie'])}/>
 
         </DataTable>
