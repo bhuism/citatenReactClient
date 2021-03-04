@@ -83,13 +83,13 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
                 <div style={{'textAlign': 'left'}}>
                     <InputText type="search" onInput={(e) => {
                         const value = e.currentTarget.value;
-                        if (value && value.length > 2) {
+                        if (value && value.length > 0) {
                             setRequestParams({...requestParams, globalSearch: e.currentTarget.value});
-                        } else {
+                        } /* else {
                             if (requestParams.globalSearch !== "") {
                                 setRequestParams({...requestParams, globalSearch: ""});
                             }
-                        }
+                        } */
                     }} placeholder="Search"/>
                 </div>
             </React.Fragment>
