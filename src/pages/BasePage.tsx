@@ -14,7 +14,7 @@ const BasePage: React.FC = ({children}) => {
                 </a>
                 <a href="https://github.com/bhuism/citatenReactClient" target="_blank" rel="noreferrer">
                     <Badge
-                        url={'https://badge.odee.net/github/actuator/bhuism/citatenReactClient/master/badge.svg?actuator_url=https://citaten.odee.net/actuator/info'}/>
+                        url={'https://badge.odee.net/github/actuator/bhuism/citatenReactClient/master/badge.svg?html_url=https://citaten.odee.net'}/>
                 </a>
             </footer>
         </>
