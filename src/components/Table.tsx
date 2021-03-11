@@ -36,7 +36,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     const [loading, setLoading] = useState(false);
     const [state, setState] = useState<IDataTableState<{}>>({
         rows: [],
-        count: null
+        count: undefined
     });
 
     function getUrl(): string {
@@ -47,12 +47,20 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
         setLoading(true);
         setSelected([]);
 
-        var count: string | null = null;
+        var count: number | undefined = undefined;
 
         fetch(getUrl())
             .then((response) => {
-                count = response.headers.get("total-count");
+
+                let stringValue = response.headers.get("total-count");
+
+                if (stringValue) {
+                    let temp = parseInt(stringValue);
+                    count = temp ? temp : undefined;
+                }
+
                 return response.json();
+
             })
             .then((result) => {
                 setState({
@@ -144,7 +152,7 @@ export const Table: React.FC<TableProps> = (props: TableProps) => {
     function bottomRight() {
         return (<Paginator first={requestParams.offset}
                            rows={requestParams.limit}
-                           totalRecords={state.rows.length < requestParams.limit ? state.rows.length : requestParams.offset + requestParams.limit + 1}
+                           totalRecords={state.count}
                            rowsPerPageOptions={[5, 10, 25, 50]}
                            onPageChange={(e) => setRequestParams({
                                ...requestParams,
