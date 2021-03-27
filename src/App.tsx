@@ -4,7 +4,6 @@ import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import 'primeflex/primeflex.css';
 import './App.css';
-import {BrowserRouter as Router, Route} from "react-router-dom";
 import HomePage from "./pages/HomePage";
 
 export function getRuntimeVariable(setting: string): string {
@@ -13,12 +12,7 @@ export function getRuntimeVariable(setting: string): string {
 }
 
 const App: React.FC = () => {
-    return (
-        <Router>
-            <Route exact={true} path="/" component={HomePage}/>
-        </Router>
-    );
+    return <HomePage/>;
 }
-
 
 export default App;
