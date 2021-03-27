@@ -6,6 +6,7 @@ const BasePage: React.FC = ({children}) => {
 
     return (
         <>
+            <h1>Citaten</h1>
             <main>{children}</main>
             <footer className='layout-footer'>
                 <a href="https://github.com/bhuism/citaten" target="_blank" rel="noreferrer">
